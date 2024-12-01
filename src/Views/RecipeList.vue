@@ -6,7 +6,11 @@
     <div v-else>
       <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
         <h2>{{ recipe.name }}</h2>
-        <button @click="goToDetail(recipe.id)">View Details</button>
+        <bouton>
+          <router-link :to="{ name: 'RecipeDetail', params: { id: recipe.id } }">
+        Voir les détails
+      </router-link>
+    </bouton>
       </div>
     </div>
   </div>
@@ -27,7 +31,6 @@ export default {
   methods: {
     fetchRecipes() {
       const jwtToken = localStorage.getItem('jwtToken');
-      console.log(jwtToken, localStorage.getItem('jwtToken'));
       axios
         .get('http://localhost:8000/api/recipes',{
           headers: {
@@ -44,6 +47,7 @@ export default {
         });
     },
     goToDetail(recipeId) {
+      console.log(recipeId);
       this.$router.push({ name: 'RecipeDetail', params: { id: recipeId } });
     },
   },
