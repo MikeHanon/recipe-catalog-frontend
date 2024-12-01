@@ -1,15 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    
+    <nav>
+      
+      <router-link to="/recipes">Recipes</router-link>
+    </nav>
+    
+    
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios';
+
+
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  created() {
+    console.log('App created');
+    this.authenticate();
+  },
+  methods: {
+    authenticate() {
+      axios
+       .post('http://localhost:8000/api/login', {
+          "email": "admin@example.com",
+          "password": "adminPass"
+       })
+        .then((response) => {
+          const jwtToken = response.data.JwtToken;
+          const refreshToken = response.data.refreshToken;
+          localStorage.setItem('jwtToken', jwtToken);
+          localStorage.setItem('refreshToken', refreshToken);
+        })
+    },
   }
 }
 </script>
