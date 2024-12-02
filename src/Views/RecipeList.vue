@@ -7,9 +7,9 @@
       <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
         <h2>{{ recipe.name }}</h2>
         
-        <bouton>
-          <router-link :to="{ name: 'RecipeDetail', params: { id: recipe.id } }">Voir les détails</router-link>
-        </bouton>
+        <button><router-link :to="{ name: 'RecipeDetail', params: { id: recipe.id } }">Voir les détails</router-link></button>
+        <button v-if="isAdmin"><router-link :to="{ name: 'UpdateRecipe', params: {id: recipe.id} }">Update Recipe</router-link></button>
+        <button v-if="isAdmin" @click="deleteRecipe(recipe.id)">Supprimer</button>
       </div>
     </div>
   </div>
@@ -49,7 +49,29 @@ export default {
       console.log(recipeId);
       this.$router.push({ name: 'RecipeDetail', params: { id: recipeId } });
     },
+    deleteRecipe(recipeId) {
+      const token = localStorage.getItem('jwtToken');
+      
+      // Confirmer la suppression
+      if (confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
+        axios
+          .delete(`http://localhost:8000/api/recipes/${recipeId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          .then(() => {
+            // Mettre à jour la liste des recettes après suppression
+            this.recipes = this.recipes.filter(recipe => recipe.id !== recipeId);
+            alert('Recette supprimée avec succès');
+          })
+          .catch(error => {
+            this.error = 'Failed to delete recipe: ' + error.message;
+          });
+      }
+    },
   },
+  
   created() {
     this.fetchRecipes();
   },

@@ -5,6 +5,7 @@
       
       <button><router-link to="/recipes">Recipes</router-link></button>
       <button><router-link to="/recipes/add-recipe">Add Recipe</router-link></button>
+      
     </nav>
     
     

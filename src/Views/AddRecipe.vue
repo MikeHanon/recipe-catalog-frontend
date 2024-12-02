@@ -95,6 +95,7 @@ export default {
         })
         .then((response) => {
           console.log('Recipe added successfully:', response.data);
+          this.$router.push({ name: 'RecipeDetail', params: { id: response.data.recipe_id}, query: { message: response.data.message } });
         })
         .catch((error) => {
           console.error('Failed to add recipe:', error.message);

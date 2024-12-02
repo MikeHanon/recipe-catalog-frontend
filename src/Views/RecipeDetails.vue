@@ -1,7 +1,8 @@
 <template>
+  <p v-if="$route.query.message" class="update-message">{{$route.query.message}}</p>
     <div class="recipe-details">
       <!-- Affichage du titre de la recette -->
-      <h1>{{ recipe.title }}</h1>
+      <h1>{{ recipe.name }}</h1>
       
       <!-- Description de la recette -->
       <p class="recipe-description">{{ recipe.description }}</p>
