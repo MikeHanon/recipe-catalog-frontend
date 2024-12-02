@@ -6,11 +6,13 @@
     <div v-else>
       <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
         <h2>{{ recipe.name }}</h2>
-        <bouton>
+        
           <router-link :to="{ name: 'RecipeDetail', params: { id: recipe.id } }">
-        Voir les détails
+            <bouton>
+              Voir les détails
+            </bouton>
+       
       </router-link>
-    </bouton>
       </div>
     </div>
   </div>
