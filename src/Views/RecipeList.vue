@@ -7,12 +7,9 @@
       <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
         <h2>{{ recipe.name }}</h2>
         
-          <router-link :to="{ name: 'RecipeDetail', params: { id: recipe.id } }">
-            <bouton>
-              Voir les détails
-            </bouton>
-       
-      </router-link>
+        <bouton>
+          <router-link :to="{ name: 'RecipeDetail', params: { id: recipe.id } }">Voir les détails</router-link>
+        </bouton>
       </div>
     </div>
   </div>
